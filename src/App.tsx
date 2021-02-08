@@ -1,25 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Particles from "react-particles-js";
+import "./App.css";
+import { Navbar } from "./Components";
+import { Chat, Friends, Profile, Dev, Login, SignUp, Page404 } from "./Pages";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Layout } from "./Styles";
+import { UserContext } from "./Utils";
 
 function App() {
+  const [user, setUser] = useState("");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={[user, setUser]}>
+      <Router>
+        <div className="App">
+          <Particles
+            width="100%"
+            height="100%"
+            params={{
+              particles: {
+                number: {
+                  value: 50,
+                },
+                size: {
+                  value: 3,
+                },
+              },
+              interactivity: {
+                events: {
+                  onhover: {
+                    enable: true,
+                    mode: "repulse",
+                  },
+                },
+              },
+            }}
+          />
+          <Navbar />
+          <Layout>
+            <Switch>
+              <Route exact path="/" component={Chat} />
+              <Route exact path="/Friends" component={Friends} />
+              <Route exact path="/Profile" component={Profile} />
+              <Route exact path="/Dev" component={Dev} />
+              <Route exact path="/Login" component={Login} />
+              <Route exact path="/Signup" component={SignUp} />
+              <Route path="*" component={Page404} />
+            </Switch>
+          </Layout>
+        </div>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

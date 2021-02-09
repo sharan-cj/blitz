@@ -7,7 +7,7 @@ export const Navbar = () => {
   const history = useHistory();
   return (
     <Nav>
-      <Logo onClick={() => history.push("/")}>Blitz Messenger</Logo>
+      <Logo onClick={() => history.push("/")}>Blitz</Logo>
       <NavGroup>
         <NavItem onClick={() => history.push("/")}>Chats</NavItem>
         <NavItem onClick={() => history.push("/Friends")}>Friends</NavItem>
@@ -133,7 +133,7 @@ const MenuBtn = styled.button`
 
 const Logo = styled.div`
   font-family: cursive;
-  color: #151313;
+  // color: #151313;
   font-size: 2rem;
   cursor: default;
 `;

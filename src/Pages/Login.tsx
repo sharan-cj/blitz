@@ -17,6 +17,10 @@ export const Login = () => {
         .then((userCredential) => {
           let user = userCredential.user;
           setUser(user);
+          if (user) {
+            const localUser = JSON.stringify(user);
+            localStorage.setItem("User", localUser);
+          }
           history.push("/");
         })
         .catch((error) => {

@@ -46,6 +46,14 @@ export const Chat = () => {
   }, []);
 
   useEffect(() => {
+    const element = document.getElementById("chatroom");
+    element?.scroll({
+      top: element.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages]);
+
+  useEffect(() => {
     if (chatBuddy?.uid) {
       db.ref(`Users/${user.uid}/Chats/${chatBuddy.uid}`).on("value", (snap) => {
         const messageObj = snap.val();
@@ -89,7 +97,7 @@ export const Chat = () => {
               Back
             </Button>
           </TopBar>
-          <ChatRoom>
+          <ChatRoom id="chatroom">
             {messages && messages.length >= 1 ? (
               <>
                 {messages.map((message) => {

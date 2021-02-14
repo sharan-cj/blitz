@@ -3,6 +3,7 @@ import { Button, Container, Input } from "../Styles";
 import { UserContext, Firebase } from "../Utils";
 import styled from "styled-components";
 import dp from "../Assets/dp.png";
+import { useHistory } from "react-router-dom";
 
 export const Friends = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export const Friends = () => {
   const [currentUserFriends, setCurrentUserFriends] = useState<any>([]);
   const [user] = useContext(UserContext);
   const db = Firebase.database();
+  const history = useHistory();
 
   const searchUser = () => {};
 
@@ -75,15 +77,26 @@ export const Friends = () => {
                 <Img src={dp} alt="blitz" />
                 <Name>{allUsersProfile[id].Profile.displayName}</Name>
                 <Email>{allUsersProfile[id].Profile.email}</Email>
-                <Button
-                  Color="#3414c0"
-                  primary={!isDisabled}
-                  style={{ width: "90%" }}
-                  onClick={() => addFriendHandler(id)}
-                  disabled={isDisabled}
-                >
-                  {isDisabled ? "Added" : "Add friend"}
-                </Button>
+                {user.uid === id ? (
+                  <Button
+                    Color="#3414c0"
+                    primary
+                    style={{ width: "90%" }}
+                    onClick={() => history.push("/Profile")}
+                  >
+                    Edit Profile
+                  </Button>
+                ) : (
+                  <Button
+                    Color="#3414c0"
+                    primary={!isDisabled}
+                    style={{ width: "90%" }}
+                    onClick={() => addFriendHandler(id)}
+                    disabled={isDisabled}
+                  >
+                    {isDisabled ? "Added" : "Add friend"}
+                  </Button>
+                )}
               </Container>
             );
           })}
